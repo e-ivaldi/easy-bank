@@ -1,0 +1,13 @@
+CREATE SCHEMA easy_bank;
+
+CREATE TYPE TEXT AS VARCHAR(65536);
+
+CREATE TABLE easy_bank.users
+(
+	user_id INTEGER IDENTITY,
+	username VARCHAR(16) NOT NULL,
+	password VARCHAR(128) NOT NULL
+);
+
+SET INITIAL SCHEMA easy_bank;
+
