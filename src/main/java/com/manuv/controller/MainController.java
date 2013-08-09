@@ -24,7 +24,7 @@ public class MainController extends BaseController {
 	 * @return the view "index.jsp"
 	 */
 	@RequestMapping(value = INDEX_ROUTE)
-	public String index(Model model, Locale locale) {
+	public String index(Model model, Locale locale) {		
 
 		User user = this.getCurrentUser();
 		
@@ -33,7 +33,7 @@ public class MainController extends BaseController {
 			logger.debug("user logged: " + user.getUsername());
 			model.addAttribute(USER, user);
 		}
-
+		
 		return INDEX_VIEW;
 	}
 	
@@ -44,8 +44,8 @@ public class MainController extends BaseController {
 	 * @return the view "index.jsp"
 	 */
 	@RequestMapping(value = PAGE_NOT_FOUND_ROUTE)
-	public String pageNotFound(Model model, Locale locale) {		
-
+	public String pageNotFound(Model model, Locale locale) {
+		
 		return PAGE_NOT_FOUND_VIEW;
 	}
 	

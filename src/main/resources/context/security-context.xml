@@ -9,7 +9,7 @@
 	<sec:http pattern="/resources/**" security="none" />
 
 	<!-- define the security for the webapp -->
-	<sec:http use-expressions="true" create-session="ifRequired" auto-config="false" access-denied-page="/denied">
+	<sec:http use-expressions="true" create-session="ifRequired" auto-config="false">
 		<sec:intercept-url pattern="/" access="permitAll" />	
 		<sec:intercept-url pattern="/logout" access="permitAll" />	
 		<sec:intercept-url pattern="/exception" access="permitAll" />	
