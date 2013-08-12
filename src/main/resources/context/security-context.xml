@@ -14,9 +14,9 @@
 		<sec:intercept-url pattern="/logout" access="permitAll" />	
 		<sec:intercept-url pattern="/exception" access="permitAll" />	
 		<sec:intercept-url pattern="/**" access="isAuthenticated()" />
-		<sec:form-login 		
+		<sec:form-login			
 			authentication-failure-url="/?loginError=true"			
-			always-use-default-target="false" 
+			always-use-default-target="true" 
 			default-target-url="/" 
 			login-processing-url="/login-process" 
 			login-page="/"/>

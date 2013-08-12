@@ -4,17 +4,17 @@
 <tiles-definitions>
 
     <definition name="*" template="/WEB-INF/tiles/template.jsp">
-        <put-attribute name="meta" value="/WEB-INF/tiles/meta.jsp" />
-        <put-attribute name="header" value="/WEB-INF/tiles/header.jsp" />
+        <put-attribute name="meta" value="/WEB-INF/tiles/common/meta.jsp" />
+        <put-attribute name="header" value="/WEB-INF/tiles/common/header.jsp" />
         <put-attribute name="body" value="/WEB-INF/tiles/{0}/body.jsp" />
-        <put-attribute name="footer" value="/WEB-INF/tiles/footer.jsp" />
-    </definition>
+        <put-attribute name="footer" value="/WEB-INF/tiles/common/footer.jsp" />
+    </definition> 
     
-      <definition name="page_not_found" template="/WEB-INF/tiles/template.jsp">
-        <put-attribute name="meta" value="/WEB-INF/tiles/meta.jsp" />
-        <put-attribute name="header" value="/WEB-INF/tiles/empty.jsp" />
+	<definition name="page_not_found" template="/WEB-INF/tiles/template.jsp">
+        <put-attribute name="meta" value="/WEB-INF/tiles/common/meta.jsp" />
+        <put-attribute name="header" value="/WEB-INF/tiles/common/empty.jsp" />
         <put-attribute name="body" value="/WEB-INF/tiles/page_not_found/body.jsp" />
-        <put-attribute name="footer" value="/WEB-INF/tiles/empty.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/tiles/common/empty.jsp" />
     </definition>
 
 </tiles-definitions>

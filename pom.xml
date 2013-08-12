@@ -11,7 +11,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
-		<org.springframework-version>3.2.2.RELEASE</org.springframework-version>
+		<org.springframework-version>3.2.4.RELEASE</org.springframework-version>
 		<org.hibernate-version>4.1.9.Final</org.hibernate-version>
 	</properties>	
 
@@ -22,6 +22,17 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${org.springframework-version}</version>
+			<exclusions>
+	            <exclusion>
+	                <artifactId>commons-logging</artifactId>
+	                <groupId>commons-logging</groupId>
+	            </exclusion>
+        	</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -79,15 +90,24 @@
 		<!-- /TEST PURPOSES -->
 		<!-- LOG -->
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.5</version>
-			<exclusions>
-				<exclusion>
-					<artifactId>slf4j-api</artifactId>
-					<groupId>org.slf4j</groupId>
-				</exclusion>
-			</exclusions>
+	        <groupId>org.slf4j</groupId>
+	        <artifactId>slf4j-api</artifactId>
+	        <version>1.7.5</version>
+	    </dependency>
+	    <dependency>
+	        <groupId>org.slf4j</groupId>
+	        <artifactId>jcl-over-slf4j</artifactId>
+	        <version>1.7.5</version>
+	    </dependency>
+	    <dependency>  
+	        <groupId>org.slf4j</groupId>  
+	        <artifactId>slf4j-log4j12</artifactId>  
+	        <version>1.7.5</version>  
+	    </dependency>
+	    <dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>log4j-over-slf4j</artifactId>
+		    <version>1.7.5</version>
 		</dependency>
 		<!-- /LOG -->
 		<!-- SERVLET DEPENDENCIES -->
@@ -238,14 +258,27 @@
 		    <artifactId>tiles-jsp</artifactId>
 		    <version>3.0.1</version>
 		</dependency>
-
-
-		<!-- /APACHE TILES -->
+		<!-- /APACHE TILES -->  
+		
 		<dependency>
-		    <groupId>org.slf4j</groupId>
-		    <artifactId>log4j-over-slf4j</artifactId>
-		    <version>1.7.5</version>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-all</artifactId>
+		    <version>1.9.5</version>
 		</dependency>
 	</dependencies>
+	
+	<!--maven-surefire-plugin solves the problem about the pending connection  left by the hsql in memory db  -->
+	<build>
+		<plugins>
+			<plugin>
+			      <groupId>org.apache.maven.plugins</groupId>
+			      <artifactId>maven-surefire-plugin</artifactId>
+			      <version>2.14</version>
+			      <configuration>
+			          <reuseForks>false</reuseForks>
+			      </configuration>
+			</plugin>
+		</plugins>
+	</build>
 	
 </project>

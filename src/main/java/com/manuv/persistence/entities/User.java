@@ -1,8 +1,13 @@
 package com.manuv.persistence.entities;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.slf4j.Logger;
@@ -12,7 +17,7 @@ import com.manuv.security.AuthorizableUser;
 
 /**
  * @author emanuele.ivaldi@gmail.com
- *
+ * 
  */
 @Entity
 @Table(name = "users")
@@ -29,6 +34,9 @@ public class User extends AuthorizableUser {
 
 	@Column(name = "password", nullable = false, length = 64)
 	private String password;
+
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private List<Account> accounts;
 
 	public long getUserId() {
 		return userId;
@@ -56,23 +64,32 @@ public class User extends AuthorizableUser {
 		this.password = password;
 	}
 
-	// this method is called by the authentication-provider and it is used in the password encoder to
+	// this method is called by the authentication-provider and it is used in
+	// the password encoder to
 	// salt the form-input user password
 	public String getSalt() {
-		
+
 		StringBuilder sb = new StringBuilder();
 		sb.append(username);
 		sb.reverse();
 		sb.append("X");
 		sb.append(username);
-		
+
 		String salt = sb.toString();
-		
+
 		logger.debug("using salt: " + salt + "for user " + username);
-		
+
 		return salt;
 	}
-	
-	private final static Logger logger= LoggerFactory.getLogger(User.class);
+
+	public List<Account> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(List<Account> accounts) {
+		this.accounts = accounts;
+	}
+
+	private final static Logger logger = LoggerFactory.getLogger(User.class);
 
 }

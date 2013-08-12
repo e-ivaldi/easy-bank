@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -23,6 +24,7 @@ public class BaseController {
 	protected final static String INDEX_ROUTE = "/";
 	protected final static String PAGE_NOT_FOUND_ROUTE = "/page-not-found";
 	protected final static String EXCEPTION_HANDLED_ROUTE = "/exception";
+	protected final static String USER_LOGGED_IN_ROUTE = "/logged-in";
 
 	/*
 	 * LIST OF ALL THE VIEWS HANDLED BY THE WEBAPP
@@ -30,6 +32,7 @@ public class BaseController {
 	protected final static String INDEX_VIEW = "index";
 	protected final static String PAGE_NOT_FOUND_VIEW = "page_not_found";
 	protected final static String EXCEPTION_HANDLED_VIEW = "exception_handled";
+	protected final static String USER_LOGGED_IN_VIEW = "logged_in";
 
 	/**
 	 * Catch all the exceptions (exceptions and its subclasses)
@@ -54,13 +57,13 @@ public class BaseController {
 	 */
 	public User getCurrentUser() {
 
-		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-		if (User.class.isAssignableFrom(principal.getClass())) {
+		if (auth != null && User.class.isAssignableFrom(auth.getPrincipal().getClass())) {
 
-			return (User) principal;
+			return (User) auth.getPrincipal();
 		}
-		
+
 		return null;
 	}
 

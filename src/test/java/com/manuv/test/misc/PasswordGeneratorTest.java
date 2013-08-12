@@ -1,4 +1,4 @@
-package com.manuv.test.persistence;
+package com.manuv.test.misc;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
@@ -11,12 +11,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.encoding.PasswordEncoder;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @ActiveProfiles("dev")
 @RunWith(SpringJUnit4ClassRunner.class)
+@DirtiesContext(classMode=ClassMode.AFTER_EACH_TEST_METHOD)
 @ContextConfiguration(locations = { "classpath:context/root-context.xml" })
 public class PasswordGeneratorTest {
 
