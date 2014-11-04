@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+	<!-- define the security for the static resources inside the folder /resources @see servlet-context.xml -->
+	<sec:http pattern="/resources/**" security="none" />
+
+	<!-- define the security for the webapp -->
+	<sec:http use-expressions="true" create-session="ifRequired" auto-config="false">
+		<sec:intercept-url pattern="/" access="permitAll" />	
+		<sec:intercept-url pattern="/logout" access="permitAll" />	
+		<sec:intercept-url pattern="/exception" access="permitAll" />	
+		<sec:intercept-url pattern="/**" access="isAuthenticated()" />
+		<sec:form-login			
+			authentication-failure-url="/?loginError=true"			
+			always-use-default-target="true" 
+			default-target-url="/" 
+			login-processing-url="/login-process" 
+			login-page="/"/>
+		<sec:logout logout-success-url="/" logout-url="/logout"/>
+	</sec:http>	
+
+	<!-- our custom authentication provider, it loads the users using our dao system -->
+	<bean id="authenticationProvider" class="com.manuv.security.CustomAuthenticationProvider"/>
+
+	<!-- a sha-512 password encoder -->
+	<bean id="sha512PasswordEncoder" class="org.springframework.security.authentication.encoding.ShaPasswordEncoder">
+        <constructor-arg value="512"/>
+    </bean>
+    
+    <!-- definition of the authentication manager -->
+	<sec:authentication-manager>
+		<sec:authentication-provider user-service-ref="authenticationProvider">
+			 <sec:password-encoder ref="sha512PasswordEncoder" base64="false"> 
+			 	<!-- our custom user should have a getSalt() method -->
+                <sec:salt-source user-property="salt"/> 
+            </sec:password-encoder>
+		</sec:authentication-provider>
+	</sec:authentication-manager>	
+
+	
+</beans>

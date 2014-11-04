@@ -1,0 +1,11 @@
+CHANGELOG
+=========
+
+0.1
+Spring security up and running, there's a login form in the main page.
+Security checks if the input user exists in the datasource 
+(the datasource is an in memory database for develop and test purposes (HSQL)).
+The password is stored as a SHA-512, to salt the password is used the following formula:
+inverse(username).concat("X").concat(username) (timing-like generated password will be added as soon as possible).
+Spring profiles are active and by default (web.xml) the app is now using the "dev" the profile.
+I18n is up and running, now all the messages are only in english and italian.
